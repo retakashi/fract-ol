@@ -3,54 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reira <reira@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rtakashi <rtakashi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 18:58:47 by reira             #+#    #+#             */
-/*   Updated: 2023/05/07 20:19:04 by reira            ###   ########.fr       */
+/*   Created: 2023/04/29 21:28:13 by rtakashi          #+#    #+#             */
+/*   Updated: 2023/05/22 15:21:21 by rtakashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "fractol.h"
 
-#define HEIGHT 100
-#define WIDTH 100
-#define Y_START -2.0
-#define Y_END 2.0
-#define X_START -2.0
-#define X_END 2.0
-#define Y_SIZE (Y_END - Y_START)
-#define X_SIZE (X_END - X_START)
-#define CALC_LIMIT 100
-#define ABS_SQUARE 4.0
-
-typedef struct s_complex
+int	render_fractol(t_data *img)
 {
-	double	re;
-	double	im;
-}			t_complex;
+	t_complex	z;
 
-int	main(void)
-{
-	int i;
-	int j;
-	double y_idx;
-	double x_idx;
-	t_complex z;
-	i = 0;
-	j = HEIGHT;
-	z.re = 0.0;
-	z.im = 0.0;
-	while (j > 0)
+	if (img->argv[1][0] == 'M' && img->m == 1)
+		mandelbrot(img);
+	else if (img->argv[1][0] == 'M' && img->m == 0)
+		mandelbar(img);
+	else
 	{
-		i = 0;
-		while (i < WIDTH)
-		{
-			y_idx = Y_START + (j * (Y_SIZE / HEIGHT));
-			x_idx = X_START + (i * (X_SIZE / WIDTH));
-			i++;
-		}
-		j--;
+		set_complex(img, &z);
+		julia(img, z);
 	}
+	mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
+	return (0);
+}
+
+static void	set_t_data(int argc, char **argv, t_data *img)
+{
+	img->argc = argc;
+	img->argv = argv;
+	img->y_start = Y_START;
+	img->y_end = Y_END;
+	img->x_start = X_START;
+	img->x_end = X_END;
+	img->color1 = COLOR1;
+	img->color2 = COLOR2;
+}
+
+static void	fractal_init(int argc, char **argv, t_data *img)
+{
+	img->mlx = mlx_init();
+	if (img->mlx == NULL)
+		put_error(5);
+	img->mlx_win = mlx_new_window(img->mlx, WIDTH, HEIGHT, "Hello world!");
+	if (img->mlx_win == NULL)
+		put_error(5);
+	img->img = mlx_new_image(img->mlx, WIDTH, HEIGHT);
+	if (img->img == NULL)
+		put_error(5);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->line_length, &img->endian);
+	if (img->addr == NULL)
+		put_error(5);
+	set_t_data(argc, argv, img);
+	render_fractol(img);
+}
+
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q fractol");
+// }
+
+int	main(int argc, char **argv)
+{
+	t_data	img;
+	int		m;
+
+	m = 0;
+	argc_error(argc, argv, &m);
+	img.m = m;
+	fractal_init(argc, argv, &img);
+	check_hook(&img);
+	mlx_loop(img.mlx);
 	return (0);
 }

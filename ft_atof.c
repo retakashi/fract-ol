@@ -3,82 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reira <reira@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rtakashi <rtakashi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 20:41:37 by reira             #+#    #+#             */
-/*   Updated: 2023/05/08 02:09:31 by reira            ###   ########.fr       */
+/*   Created: 2023/05/10 15:41:51 by rtakashi          #+#    #+#             */
+/*   Updated: 2023/05/22 13:55:16 by rtakashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <float.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "fractol.h"
 
-void	search_sign(char **str, int *neg)
+static void	change_double(char **str, double *n)
 {
-	if (**str == '-')
+	while (**str && ft_isdigit(**str))
 	{
-		*neg = 1;
+		*n = *n * 10.0 + **str - '0';
 		*str += 1;
 	}
-	else if (**str == '+')
-		*str += 1;
 }
 
-int	ft_isdigit(int c)
+static int	search_exponent(char **str, double *exp)
 {
-	return ('0' <= c && '9' >= c);
-}
-
-void	search_exponent(char **str, int *exp)
-{
-	int	i;
-	int	n;
-	int	neg;
+	size_t	i;
+	double	n;
+	int		neg;
 
 	i = 0;
-	*exp = 0;
+	n = 0.0;
 	neg = 0;
+	*exp = 0.0;
 	while (**str && **str != '.' && **str != 'e' && **str != 'E')
 	{
 		i++;
 		*str += 1;
 	}
-	if (!**str)
-		*str -= i;
-	else if (**str == '.')
-		*str -= i;
-	else if (**str == 'e' || **str == 'E')
+	if (!**str || **str == '.')
 	{
-		n = 0;
-		*str += 1;
-		search_sign(str, &neg);
-		while (ft_isdigit(**str))
-		{
-			n = n * 10 + **str - '0';
-			*str += 1;
-		}
-		if (neg == 1)
-			n *= -1;
-		*exp = n;
+		*str -= i;
+		return (FALSE);
 	}
+	*str += 1;
+	search_sign(str, &neg);
+	change_double(str, &n);
+	if (neg == 1)
+		n *= -1;
+	*exp = n;
+	return (TRUE);
 }
 
-void	demicals(char **str, double *n)
+static void	add_demicals(char **str, double *n, double *m)
 {
 	double	i;
 
-	*n = 0.0;
+	*m = 0.0;
 	i = 1.0;
+	*str += 1;
 	while (**str && ft_isdigit(**str))
 	{
-		*n = *n + 0.1 * (1.0 / i) * (**str - '0');
+		*m = *m + 0.1 * (1.0 / i) * (**str - '0');
 		i *= 10.0;
 		*str += 1;
 	}
+	*n += *m;
 }
 
-double	add_exponent(double n, int *exp, int *neg)
+static double	add_exponent(double n, double *exp, int *neg)
 {
 	if (*exp < 0)
 	{
@@ -101,49 +89,25 @@ double	add_exponent(double n, int *exp, int *neg)
 	return (n);
 }
 
-double	ft_atof(char *str)
+double	ft_atof(char **str)
 {
 	double	n;
 	double	m;
 	int		neg;
-	int		exp;
+	double	exp;
 
 	neg = 0;
 	n = 0.0;
-	search_sign(&str, &neg);
-	while (str && ft_isdigit(*str))
-	{
-		n = n * 10.0 + *str - '0';
-		str++;
-	}
-	search_exponent(&str, &exp);
-	if (exp != 0)
+	search_space(str);
+	search_sign(str, &neg);
+	change_double(str, &n);
+	if (search_exponent(str, &exp) != FALSE)
 		return (add_exponent(n, &exp, &neg));
-	if (*str == '.')
-	{
-		str++;
-		demicals(&str, &m);
-		n += m;
-	}
-    search_exponent(&str, &exp);
-	if (exp != 0)
+	if (**str == '.')
+		add_demicals(str, &n, &m);
+	if (search_exponent(str, &exp) != FALSE)
 		return (add_exponent(n, &exp, &neg));
 	if (neg == 1)
 		n *= -1;
 	return (n);
-}
-
-int	main(void)
-{
-	double max = DBL_MAX;
-	char *str = "-1.7976931348623157e+308";
-	double n;
-	// n=ft_atof(str);
-	n = atof(str);
-	printf("n %e\n", n);
-	n = ft_atof(str);
-	printf("ft %e\n", n);
-	// printf("double_max %e\n", max / 10);
-	// printf("double_min %f\n", max);
-	return (0);
 }

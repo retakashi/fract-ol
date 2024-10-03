@@ -14,12 +14,11 @@
 # define FRACTOL_H
 
 # include "../libft/libft.h"
-# include "mlx.h"
+# include "./minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <float.h>
 # include <limits.h>
 # include <math.h>
-# include <mlx.h>
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -40,11 +39,12 @@
 # define DESTROY 17
 # define MOUSEUP 5
 # define MOUSEDOWN 4
-# define ESC_KEY 53
-# define G_KEY 5
-# define B_KEY 11
+# define ESC_KEY 65307
+# define G_KEY 103
+# define B_KEY 98
 # define MOUSEDOW 4
 # define MOUSEUP 5
+
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
@@ -53,10 +53,10 @@
 # define COLOR3 0x00005000
 # define ZOOM_LEN 0.2
 # define ZOOM_LIMIT 0.3
-# define LEFT 123
-# define RIGHT 124
-# define DOWN 125
-# define UP 126
+# define LEFT 65361
+# define RIGHT 65363
+# define DOWN 65364
+# define UP 65362
 
 typedef struct s_complex
 {

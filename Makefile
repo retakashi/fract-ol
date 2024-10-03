@@ -1,21 +1,11 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rtakashi <rtakashi@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/14 18:49:43 by rtakashi          #+#    #+#              #
-#    Updated: 2023/05/22 13:24:17 by rtakashi         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = fractol
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-LIBFT = libft/libft.a
+CFLAGS = -fsanitize=address,undefined
+LIBFTDIR = ./libft
+LIBFT = $(LIBFTDIR)/libft.a
 SRCS = main.c fractol_utils.c mandelbrot.c julia.c ft_atof.c ft_atof_utils.c error_check.c mlx_hook.c mlx_hook_utils.c mandelbar.c
-MLX_FLAGS= -lmlx -framework OpenGL -framework AppKit
+# MLX_FLAGS= -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit
 OBJS = ${addprefix $(OBJS_DIR)/,$(SRCS:.c=.o)}
 OBJS_DIR = objs
 
@@ -31,12 +21,14 @@ RM = rm -f
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	make -C libft
-	$(CC) $(OBJS) $(MLX_FLAGS) $(LIBFT) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT) ./minilibx-linux/libmlx_Darwin.a
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) ./minilibx-linux/libmlx_Darwin.a $(MLX_FLAGS) -o $(NAME)
 
-${OBJS_DIR}/%.o:%.c
+${OBJS_DIR}/%.o: %.c
 	$(CC) $(CFLAGS) -Imlx -c $< -o $@
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFTDIR)
 
 clean: 
 	make clean -C libft

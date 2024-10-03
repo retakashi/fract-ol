@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtakashi <rtakashi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: reira <reira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 21:07:41 by rtakashi          #+#    #+#             */
-/*   Updated: 2023/05/22 13:37:37 by rtakashi         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:49:55 by reira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ static int	close_destroy(t_data *img)
 static int	mouse_hook(int button, int x, int y, t_data *img)
 {
 	get_rate(x, y, img);
-	if (button == 4 && img->y_end - img->y_start > ZOOM_LIMIT && img->x_end
+	if (button == MOUSEDOWN && img->y_end - img->y_start > ZOOM_LIMIT && img->x_end
 		- img->x_start > ZOOM_LIMIT)
 	{
 		get_coordinate(button, img);
 		render_fractol(img);
 	}
-	else if (button == 5)
+	else if (button == MOUSEUP)
 	{
 		get_coordinate(button, img);
 		render_fractol(img);
@@ -88,9 +88,9 @@ static int	mouse_hook(int button, int x, int y, t_data *img)
 
 int	check_hook(t_data *img)
 {
-	mlx_hook(img->mlx_win, KEYDOWN, 0, close_key, img);
-	mlx_hook(img->mlx_win, DESTROY, 0, close_destroy, img);
-	mlx_hook(img->mlx_win, MOUSEUP, 0, mouse_hook, img);
-	mlx_hook(img->mlx_win, MOUSEDOWN, 0, mouse_hook, img);
+	mlx_hook(img->mlx_win, KEYDOWN, 1L<<0, close_key, img);
+	mlx_hook(img->mlx_win, DESTROY, 1L<<0, close_destroy, img);
+	mlx_hook(img->mlx_win, MOUSEUP, 1L<<6, mouse_hook, img);
+	mlx_hook(img->mlx_win, MOUSEDOWN, 1L<<6, mouse_hook, img);
 	return (0);
 }

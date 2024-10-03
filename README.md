@@ -46,7 +46,7 @@ make
 
     $z_{0} = 0,z = (z')^2 + c$
 
-### Features
+## Features
 - B key, G key: The color changes.
 - left arrow key, right arrow key: The view moves.
 - mouse down, mouse up: The view zooms in and out based on the mouse position.

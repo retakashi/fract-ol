@@ -24,7 +24,9 @@ make
     The Julia set is the collection of points c that do not diverge in the following iterative function.
 
     $z_{n+1} = z_{n}^{2} + c,c = a + bi$
+
     Please enter the expression for c in the argument of the Julia set. For example:
+  
       - 0.32+0.043
       - -0.15652+1.03225
       - -0.11+0.67

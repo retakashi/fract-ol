@@ -19,12 +19,18 @@ make
 - Mandelbrot
     The Mandelbrot set is the collection of points c that do not diverge in the following iterative function.
 
-    $z_{0} = 0,  z_{n+1} = z_{n}^{2} + c$
+    $z_{0} = 0,z_{n+1} = z_{n}^{2} + c$
 - Julia
-   The Julia set is the collection of points c that do not diverge in the following iterative function.
+    The Julia set is the collection of points c that do not diverge in the following iterative function.
 
-    $z_{n+1} = z_{n}^{2} + c,  c = a + bi$
-
+    $z_{n+1} = z_{n}^{2} + c,c = a + bi$
+    Please enter the expression for c in the argument of the Julia set. For example:
+      - 0.32+0.043
+      - -0.15652+1.03225
+      - -0.11+0.67
+      - 0.11031-0.67037
+      - 0.11031-0.67037
 - Mandelbar
+       
 # Julia's param
 - 

@@ -1,6 +1,6 @@
-NAME = fractol
+NAME = fract-ol
 CC = cc
-CFLAGS = -fsanitize=address,undefined
+CFLAGS = -Wall -Wextra -Werror
 LIBFTDIR = ./libft
 LIBFT = $(LIBFTDIR)/libft.a
 SRCS = main.c fractol_utils.c mandelbrot.c julia.c ft_atof.c ft_atof_utils.c error_check.c mlx_hook.c mlx_hook_utils.c mandelbar.c

@@ -16,8 +16,11 @@ macOS with M1 chip
 
 ## Usage
 git clone ...
+
 cd fract-ol
+
 make
+
 ./fractol < fractol shape > < Julia's param >
 
 ### fractol shape

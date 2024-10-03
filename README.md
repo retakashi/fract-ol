@@ -15,6 +15,7 @@ C and MiniLibX are used to create a program that generates fractal shapes.
 macOS with M1 chip
 
 ## Usage
+``` bash
 git clone ...
 
 cd fract-ol
@@ -22,7 +23,7 @@ cd fract-ol
 make
 
 ./fractol < fractol shape > < Julia's param >
-
+```
 ### fractol shape
 - Mandelbrot
   

@@ -19,7 +19,7 @@ macOS with M1 chip
 git clone ...
 cd fract-ol
 make
-./fractol <fractol shape> <Julia\'s param>
+./fractol <fractol shape> <Julia param>
 ```
 ### fractol shape
 - Mandelbrot

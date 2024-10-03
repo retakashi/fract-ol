@@ -6,7 +6,7 @@
 /*   By: reira <reira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 21:07:41 by rtakashi          #+#    #+#             */
-/*   Updated: 2024/10/03 11:49:55 by reira            ###   ########.fr       */
+/*   Updated: 2024/10/03 12:11:53 by reira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	check_hook(t_data *img)
 {
 	mlx_hook(img->mlx_win, KEYDOWN, 1L<<0, close_key, img);
 	mlx_hook(img->mlx_win, DESTROY, 1L<<0, close_destroy, img);
-	mlx_hook(img->mlx_win, MOUSEUP, 1L<<6, mouse_hook, img);
-	mlx_hook(img->mlx_win, MOUSEDOWN, 1L<<6, mouse_hook, img);
+	mlx_hook(img->mlx_win, MOUSEUP, 1L<<2, mouse_hook, img);
+	mlx_hook(img->mlx_win, MOUSEDOWN, 1L<<2, mouse_hook, img);
 	return (0);
 }

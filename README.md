@@ -21,7 +21,7 @@ make
 
     $z_{0}=0$
 
-    $z_{n+1}​=z_{n}^2​+c$
+    $z_n+1​=z_{n}^2​+c$
 - Julia
    The Julia set is the collection of points c that do not diverge in the following iterative function.
 

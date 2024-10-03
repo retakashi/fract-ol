@@ -22,10 +22,12 @@ make
 
 ### fractol shape
 - Mandelbrot
+  
     The Mandelbrot set is the collection of points c that do not diverge in the following iterative function.
 
     $z_{0} = 0,z_{n+1} = z_{n}^{2} + c$
 - Julia
+  
     The Julia set is the collection of points c that do not diverge in the following iterative function.
 
     $z_{n+1} = z_{n}^{2} + c,c = a + bi$
@@ -38,6 +40,7 @@ make
       0.11031-0.67037
       0.11031-0.67037
 - Mandelbar
+  
     The Mandelbar set is the collection of points c that do not diverge in the following iterative function.
 
     $z_{0} = 0,z = (z')^2 + c$

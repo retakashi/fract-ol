@@ -20,7 +20,7 @@ cd fract-ol
 make
 ./fractol < fractol shape > < Julia's param >
 
-# fractol shape
+### fractol shape
 - Mandelbrot
     The Mandelbrot set is the collection of points c that do not diverge in the following iterative function.
 

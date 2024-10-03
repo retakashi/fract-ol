@@ -23,10 +23,9 @@ make
 ```
 - Julia
    The Julia set is the collection of points c that do not diverge in the following iterative function.
-
-    $z_{n+1}​=z_{n}^2​+c$
-  
-    $c=a+bi$
+```math
+    z_{n+1}​=z_{n}^2​+c, \quad c=a+bi
+```
 - Mandelbar
 # Julia's param
 - 

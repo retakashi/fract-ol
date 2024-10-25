@@ -11,8 +11,10 @@
 ## Overview
 C and MiniLibX are used to create a program that generates fractal shapes.
 
-## Requirement
-macOS with M1 chip
+## Implementation Environment
+- **Programming Language**: C
+- **Operating Systems**: macOS
+- **Compiler**: Apple Clang 15.0.0 (clang-1500.3.9.4), Target: arm64-apple-darwin23.6.0
 
 ## Usage
 ``` bash
